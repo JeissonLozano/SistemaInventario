@@ -3,6 +3,7 @@ using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
 using SistemaInventario.Modelos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SistemaInventario.AccesoDatos.Repositorio
@@ -16,5 +17,18 @@ namespace SistemaInventario.AccesoDatos.Repositorio
             _db = db;
         }
 
+        public void Actualizar(Bodega bodega)
+        {
+            var bodegaDb = _db.Bodegas.FirstOrDefault(b => b.Id == bodega.Id);
+
+            if(bodegaDb != null)
+            {
+                bodegaDb.Nombre = bodega.Nombre;
+                bodegaDb.Descripcion = bodega.Descripcion;
+                bodegaDb.Estado = bodega.Estado;
+                _db.SaveChanges();
+            }
+
+        }
     }
 }
